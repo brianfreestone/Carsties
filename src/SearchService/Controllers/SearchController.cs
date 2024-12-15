@@ -6,7 +6,7 @@ using SearchService.RequestHelpers;
 namespace SearchService.Controllers
 {
     [ApiController]
-    [Route("api/search")]
+    [Route("api/[controller]")]
     public class SearchController : ControllerBase
     {
         [HttpGet]
