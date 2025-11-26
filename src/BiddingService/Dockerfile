@@ -4,19 +4,19 @@ EXPOSE 80
 
 # Copy csproj and restore as distinct layers
 COPY Carsties.sln Carsties.sln
-COPY src/SearchService/SearchService.csproj src/SearchService/SearchService.csproj
+COPY src/BiddingService/BiddingService.csproj src/BiddingService/BiddingService.csproj
 COPY src/Contracts/Contracts.csproj src/Contracts/Contracts.csproj
 
 # Restore package deps
-RUN dotnet restore src/SearchService/SearchService.csproj
+RUN dotnet restore src/BiddingService/BiddingService.csproj
 
 # Copy everything else and build
 COPY . .
-WORKDIR /src/src/SearchService
+WORKDIR /src/src/BiddingService
 RUN dotnet publish -c Release -o /app/publish
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
 COPY --from=build /app/publish .
-ENTRYPOINT ["dotnet", "SearchService.dll"]
+ENTRYPOINT ["dotnet", "BiddingService.dll"]
