@@ -45,6 +45,8 @@ async function del(url: string) {
 
 async function handleResponse(response: Response) {
     const text = await response.text();
+  
+
     let data;
     try {
         data = text ? JSON.parse(text) : null;
@@ -56,7 +58,7 @@ async function handleResponse(response: Response) {
     } else {
         const error = {
             status: response.status,
-            message: response.statusText,
+            message: typeof data === 'string' ? data : response.statusText,
             details: data
         };
         return { error };
